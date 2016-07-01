@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Retrofit2</string>
+    <string name="username_hint">username</string>
+    <string name="request_data">request data</string>
+</resources>
