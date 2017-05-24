@@ -1,21 +1,26 @@
-package tau.retrofit2;
+package com.devtau.retrofit2;
 
 import com.google.gson.annotations.SerializedName;
 /**
- * Created by TAU on 22.04.2016.
+ * POJO class files can be generated from Json strings with help of http://www.jsonschema2pojo.org/
  */
 public class GitModelPOJO {
-    //POJO class files can be generated from Json strings with help of http://www.jsonschema2pojo.org/
+
     @SerializedName("login")
     private String login;
+
     @SerializedName("id")
     private Integer id;
+
     @SerializedName("name")
     private String name;
+
     @SerializedName("company")
     private String company;
+
     @SerializedName("blog")
     private String blog;
+
     @SerializedName("avatarUrl")
     private String avatarUrl;
 
