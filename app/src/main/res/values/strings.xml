@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Retrofit2</string>
     <string name="username_hint">username</string>
+    <string name="username_default">devtau</string>
+    <string name="enter_github_username">Enter github username:</string>
     <string name="request_data">Request data</string>
     <string name="account_data_formatter" formatted="false">Аккаунт Github: %s\nСайт: %s\nКомпания: %s\nАватара: %s</string>
     <string name="user_info">User info:</string>
+    <string name="error">Error:</string>
 </resources>

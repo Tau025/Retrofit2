@@ -1,11 +1,11 @@
-package com.devtau.retrofit2;
-
-import android.content.res.Resources;
+package com.devtau.retrofit2
 
 interface MainActivityView {
-	void showProgressBar();
-	void dismissProgressBar();
-	void updateUI(String msg);
-	void showToast(String msg);
-	Resources getResources();
+    fun showProgress(show: Boolean)
+
+    fun clearUserInfo()
+    fun showUserInfo(user: GitUserModel?)
+
+    fun clearError()
+    fun showError(msg: String)
 }

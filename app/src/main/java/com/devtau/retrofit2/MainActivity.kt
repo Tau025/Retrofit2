@@ -1,66 +1,60 @@
-package com.devtau.retrofit2;
+package com.devtau.retrofit2
 
-import android.app.Dialog;
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.Window;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
-public class MainActivity extends AppCompatActivity implements MainActivityView{
+class MainActivity: AppCompatActivity(), MainActivityView {
 
-    private EditText usernameEditText;
-    private TextView userInfoTextView;
-    private Dialog progressBar;
-    private RESTClient restClient;
+    private var restClient = RESTClient(this)
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        restClient = new RESTClient(this);
-        initUI();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        request_data_button.setOnClickListener {
+            clearUserInfo()
+            clearError()
+            restClient.sendRequest(user_name_edit_text.text.toString())
+        }
     }
 
-    @Override
-    public void showProgressBar() {
-        progressBar.show();
+    override fun showProgress(show: Boolean) {
+        progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    @Override
-    public void dismissProgressBar() {
-        progressBar.dismiss();
+    override fun clearUserInfo() = showUserInfo(null)
+
+    override fun showUserInfo(user: GitUserModel?) {
+        if (user == null) {
+            user_avatar.visibility = View.GONE
+            user_info.visibility = View.GONE
+            user_info_text_view.text = ""
+            return
+        }
+
+        if (user.avatarUrl.isNullOrEmpty()) {
+            user_avatar.visibility = View.GONE
+        } else {
+            user_avatar.visibility = View.VISIBLE
+            Glide.with(this).load(user.avatarUrl)
+                .transform(CircleCrop())
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(user_avatar)
+        }
+
+        user_info.visibility = View.VISIBLE
+        user_info_text_view.text = user.describeSelf(resources)
     }
 
-    @Override
-    public void updateUI(String msg) {
-        userInfoTextView.setText(msg);
-    }
+    override fun clearError() = showError("")
 
-    @Override
-    public void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
-    private void initUI() {
-        usernameEditText = (EditText) findViewById(R.id.usernameEditText);
-        userInfoTextView = (TextView) findViewById(R.id.userInfoTextView);
-        progressBar = createProgressBar(this);
-        findViewById(R.id.requestDataButton).setOnClickListener(view -> restClient.sendRequest(usernameEditText.getText().toString()));
-    }
-
-    private Dialog createProgressBar(Context context) {
-        //avoid passing getApplicationContext() as a parameter. pass "this" from activity instead
-        Dialog progressDialog = new Dialog(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.progress_bar, null);
-        progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        progressDialog.getWindow().setBackgroundDrawableResource(R.color.colorTransparent);
-        progressDialog.setContentView(view);
-        return progressDialog;
+    override fun showError(msg: String) {
+        error_title.visibility = if (msg.isEmpty()) View.GONE else View.VISIBLE
+        error_msg.text = msg
     }
 }
