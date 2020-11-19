@@ -1,13 +1,12 @@
 package com.devtau.retrofit2
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.devtau.retrofit2.util.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class MainActivity: AppCompatActivity(), MainActivityView {
 
@@ -24,37 +23,37 @@ class MainActivity: AppCompatActivity(), MainActivityView {
     }
 
     override fun showProgress(show: Boolean) {
-        progress.visibility = if (show) View.VISIBLE else View.GONE
+        progress.isVisible = show
     }
 
     override fun clearUserInfo() = showUserInfo(null)
 
     override fun showUserInfo(user: GitUserModel?) {
         if (user == null) {
-            user_avatar.visibility = View.GONE
-            user_info.visibility = View.GONE
+            user_avatar.isVisible = false
+            user_info.isVisible = false
             user_info_text_view.text = ""
             return
         }
 
         if (user.avatarUrl.isNullOrEmpty()) {
-            user_avatar.visibility = View.GONE
+            user_avatar.isVisible = false
         } else {
-            user_avatar.visibility = View.VISIBLE
+            user_avatar.isVisible = true
             Glide.with(this).load(user.avatarUrl)
                 .transform(CircleCrop())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(user_avatar)
         }
 
-        user_info.visibility = View.VISIBLE
+        user_info.isVisible = true
         user_info_text_view.text = user.describeSelf(resources)
     }
 
     override fun clearError() = showError("")
 
     override fun showError(msg: String) {
-        error_title.visibility = if (msg.isEmpty()) View.GONE else View.VISIBLE
+        error_title.isVisible = msg.isNotEmpty()
         error_msg.text = msg
     }
 }
