@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/marginNormal"
+        android:paddingRight="@dimen/marginNormal"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/open_session_button"
+            android:text="@string/open_session"
+            android:layout_width="0dp"
+            android:minHeight="@dimen/imageSize"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/recognize_file_button"
+            android:text="@string/recognize_file"
+            android:layout_width="0dp"
+            android:minHeight="@dimen/imageSize"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/marginNormal"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+</FrameLayout>

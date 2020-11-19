@@ -7,4 +7,15 @@
     <string name="account_data_formatter" formatted="false">Аккаунт Github: %s\nСайт: %s\nКомпания: %s\nАватара: %s</string>
     <string name="user_info">User info:</string>
     <string name="error">Error:</string>
+
+    <string name="open_session">open session</string>
+    <string name="recognize_file">recognize file</string>
+
+    <string name="check_internet_connection">Check your internet connection</string>
+    <string name="serializable_object_changed">It looks like one of the serializable objects received from the server has changed</string>
+    <string name="internal_server_error">Sorry, it seems we have a server error. Please try again later</string>
+    <string name="not_ready">Try again later</string>
+    <string name="device_offline">Device offline</string>
+    <string name="too_many_requests">Too many attempts. Please try again later</string>
+    <string name="comment">Notes</string>
 </resources>
