@@ -10,6 +10,8 @@
 
     <string name="open_session">open session</string>
     <string name="recognize_file">recognize file</string>
+    <string name="recognize_stream">recognize stream</string>
+    <string name="session_id">Current session ID:</string>
 
     <string name="check_internet_connection">Check your internet connection</string>
     <string name="serializable_object_changed">It looks like one of the serializable objects received from the server has changed</string>

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * Объект используется, как боди запроса на открытие сессии распознавания речи
  */
-class OpenSessionBody(
+data class OpenSessionBody(
     @SerializedName("client_info")
     private val clientInfo: ClientInfo = ClientInfo(),
     @SerializedName("username")
@@ -15,7 +15,7 @@ class OpenSessionBody(
     private val password: String = "123"
 ) {
 
-    class ClientInfo(
+    data class ClientInfo(
         private val type: String = "MOBILE",
         private val description: String = "iPhone X, 128GB, iOS 12"
     )

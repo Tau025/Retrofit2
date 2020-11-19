@@ -1,9 +1,11 @@
 package com.devtau.retrofit2.voice
 
 import com.devtau.retrofit2.voice.request.OpenSessionBody
-import com.devtau.retrofit2.voice.request.RecognitionRequestBody
+import com.devtau.retrofit2.voice.request.FileRecognitionRequestBody
+import com.devtau.retrofit2.voice.request.StreamRecognitionRequestBody
 import com.devtau.retrofit2.voice.response.BaseCallback
 import com.devtau.retrofit2.voice.response.OpenSessionResponse
+import com.devtau.retrofit2.voice.response.RecognizeStreamResponse
 import com.devtau.retrofit2.voice.response.Word
 import com.google.gson.GsonBuilder
 import io.reactivex.functions.Consumer
@@ -36,12 +38,12 @@ class RESTClientVoice(private val view: VoiceRecognitionActivityView) {
             })
     }
 
-    fun recognizeFile(file: RecognitionRequestBody.AudioFile, sessionId: String) {
+    fun recognizeFile(file: FileRecognitionRequestBody.AudioFile, sessionId: String) {
         Timber.d("recognizeFile")
         view.showProgress(true)
 
         getBackendApiClient(true)
-            .recognizeFile(RecognitionRequestBody(file), sessionId)
+            .recognizeFile(FileRecognitionRequestBody(file), sessionId)
             .enqueue(object: BaseCallback<List<Word>>(view) {
                 override fun processBody(responseBody: List<Word>?) {
                     Timber.d("recognizeFile success. responseBody=$responseBody")
@@ -49,6 +51,21 @@ class RESTClientVoice(private val view: VoiceRecognitionActivityView) {
                     view.showMsg("File recognized. " +
                         "responseBody contains ${responseBody?.size} elements.\n " +
                         "${responseBody?.joinToString { it.word }}")
+                }
+            })
+    }
+
+    fun recognizeStream(sessionId: String) {
+        Timber.d("recognizeStream")
+        view.showProgress(true)
+
+        getBackendApiClient(true)
+            .recognizeStream(StreamRecognitionRequestBody(), sessionId)
+            .enqueue(object: BaseCallback<RecognizeStreamResponse>(view) {
+                override fun processBody(responseBody: RecognizeStreamResponse?) {
+                    Timber.d("recognizeStream success. responseBody=$responseBody")
+                    view.showProgress(false)
+                    view.showMsg("recognizeStream success. responseBody=$responseBody")
                 }
             })
     }

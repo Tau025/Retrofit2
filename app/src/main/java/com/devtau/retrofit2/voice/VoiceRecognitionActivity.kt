@@ -2,14 +2,12 @@ package com.devtau.retrofit2.voice
 
 import android.Manifest
 import android.os.Bundle
-import android.os.Environment.DIRECTORY_DOWNLOADS
-import android.os.FileUtils
 import android.util.Base64
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.devtau.retrofit2.R
-import com.devtau.retrofit2.voice.request.RecognitionRequestBody
+import com.devtau.retrofit2.util.isVisible
+import com.devtau.retrofit2.voice.request.FileRecognitionRequestBody
 import io.reactivex.functions.Action
 import kotlinx.android.synthetic.main.activity_voice.*
 import java.io.*
@@ -17,16 +15,17 @@ import java.io.*
 class VoiceRecognitionActivity: AppCompatActivity(), VoiceRecognitionActivityView {
 
     private var restClient = RESTClientVoice(this)
-    private var sessionId = "7c11782d-552b-4953-a750-c48bef5d6b2e"
+    private var sessionId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_voice)
         requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PERMISSIONS_REQUEST_CODE)
+        updateSessionId(DEFAULT_SESSION_ID)
 
         open_session_button.setOnClickListener {
             restClient.openSession {
-                sessionId = it
+                updateSessionId(it)
             }
         }
 
@@ -38,10 +37,14 @@ class VoiceRecognitionActivity: AppCompatActivity(), VoiceRecognitionActivityVie
                 restClient.recognizeFile(file, sessionId)
             }
         }
+
+        recognize_stream_button.setOnClickListener {
+            restClient.recognizeStream(sessionId)
+        }
     }
 
     override fun showProgress(show: Boolean) {
-        progress.visibility = if (show) View.VISIBLE else View.GONE
+        progress.isVisible = show
     }
 
     override fun showMsg(msgId: Int, confirmedListener: Action?, cancelledListener: Action?) {
@@ -60,8 +63,8 @@ class VoiceRecognitionActivity: AppCompatActivity(), VoiceRecognitionActivityVie
 
 
 
-    private fun prepareFile(): RecognitionRequestBody.AudioFile? {
-        val audioFile = File("/storage/emulated/0/Download", "test_16000.wav")
+    private fun prepareFile(): FileRecognitionRequestBody.AudioFile? {
+        val audioFile = File(DEFAULT_FILE_DIR, DEFAULT_FILE_NAME)
 
         val bytes = ByteArray(audioFile.length().toInt())
         try {
@@ -77,10 +80,19 @@ class VoiceRecognitionActivity: AppCompatActivity(), VoiceRecognitionActivityVie
         }
 
         val encoded: String = Base64.encodeToString(bytes, 0)
-        return if (encoded.isEmpty()) null else RecognitionRequestBody.AudioFile(encoded, "audio/wav")
+        return if (encoded.isEmpty()) null else FileRecognitionRequestBody.AudioFile(encoded, "audio/wav")
+    }
+
+    private fun updateSessionId(newSessionId: String) {
+        sessionId = newSessionId
+        session_id_header.isVisible = sessionId.isNotEmpty()
+        session_id_value.text = sessionId
     }
 
     companion object {
         private const val PERMISSIONS_REQUEST_CODE = 4582
+        private const val DEFAULT_SESSION_ID = "7c11782d-552b-4953-a750-c48bef5d6b2e"
+        private const val DEFAULT_FILE_DIR = "/storage/emulated/0/Download"
+        private const val DEFAULT_FILE_NAME = "test_16000.wav"
     }
 }
