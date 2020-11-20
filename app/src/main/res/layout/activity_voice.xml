@@ -1,60 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingLeft="@dimen/marginNormal"
+    android:paddingRight="@dimen/marginNormal"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/open_session_button"
+        android:text="@string/open_session"
+        style="@style/StandardButton"
+        android:layout_marginTop="@dimen/marginNormal"/>
+
+    <Button
+        android:id="@+id/recognize_file_button"
+        android:text="@string/recognize_file"
+        style="@style/StandardButton"/>
+
+    <Button
+        android:id="@+id/recognize_stream_button"
+        android:text="@string/recognize_stream"
+        style="@style/StandardButton"/>
+
+    <Button
+        android:id="@+id/connect_to_web_socket_button"
+        android:text="@string/connect_to_web_socket"
+        style="@style/StandardButton"/>
+
+    <TextView
+        android:id="@+id/session_id_header"
+        android:text="@string/session_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/marginNormal"
-        android:paddingRight="@dimen/marginNormal"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:layout_marginTop="@dimen/marginNormal"/>
 
-        <Button
-            android:id="@+id/open_session_button"
-            android:text="@string/open_session"
-            android:layout_width="match_parent"
-            android:minHeight="@dimen/imageSize"
-            android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/session_id_value"
+        tools:text="7c11782d-552b-4953-a750-c48bef5d6b2e"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/secondaryTextSize"
+        android:layout_marginTop="@dimen/marginHalf"/>
 
-        <Button
-            android:id="@+id/recognize_file_button"
-            android:text="@string/recognize_file"
-            android:layout_width="match_parent"
-            android:minHeight="@dimen/imageSize"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginHalf"/>
+    <TextView
+        android:id="@+id/web_socket_url_header"
+        android:text="@string/web_socket_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginNormal"/>
 
-        <Button
-            android:id="@+id/recognize_stream_button"
-            android:text="@string/recognize_stream"
-            android:layout_width="match_parent"
-            android:minHeight="@dimen/imageSize"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginHalf"/>
-
-        <TextView
-            android:id="@+id/session_id_header"
-            android:text="@string/session_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginNormal"/>
-
-        <TextView
-            android:id="@+id/session_id_value"
-            tools:text="7c11782d-552b-4953-a750-c48bef5d6b2e"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginHalf"/>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/web_socket_url_value"
+        tools:text="ws://sda-tccdr42.ad.speechpro.com/vkasr1/v1/recognize/stream/text/1a3238c1-eca1-484e-ae1a-f8cb7d475207"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/secondaryTextSize"
+        android:layout_marginTop="@dimen/marginHalf"/>
 
     <ProgressBar
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
-</FrameLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/marginNormal"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+</LinearLayout>

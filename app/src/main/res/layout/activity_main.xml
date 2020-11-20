@@ -49,8 +49,8 @@
 
             <ImageView
                 android:id="@+id/user_avatar"
-                android:layout_width="@dimen/imageSize"
-                android:layout_height="@dimen/imageSize"
+                android:layout_width="@dimen/sizeHuge"
+                android:layout_height="@dimen/sizeHuge"
                 android:layout_marginRight="@dimen/marginHalf"
                 android:visibility="gone"
                 tools:visibility="visible"/>

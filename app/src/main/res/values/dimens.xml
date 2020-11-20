@@ -4,5 +4,5 @@
     <dimen name="secondaryTextSize">14sp</dimen>
     <dimen name="marginNormal">16dp</dimen>
     <dimen name="marginHalf">8dp</dimen>
-    <dimen name="imageSize">60dp</dimen>
+    <dimen name="sizeHuge">60dp</dimen>
 </resources>

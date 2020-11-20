@@ -8,10 +8,12 @@
     <string name="user_info">User info:</string>
     <string name="error">Error:</string>
 
-    <string name="open_session">open session</string>
-    <string name="recognize_file">recognize file</string>
-    <string name="recognize_stream">recognize stream</string>
+    <string name="open_session">Open session</string>
+    <string name="recognize_file">Recognize file</string>
+    <string name="recognize_stream">Recognize stream</string>
+    <string name="connect_to_web_socket">Connect to web socket</string>
     <string name="session_id">Current session ID:</string>
+    <string name="web_socket_url">Current web socket URL:</string>
 
     <string name="check_internet_connection">Check your internet connection</string>
     <string name="serializable_object_changed">It looks like one of the serializable objects received from the server has changed</string>

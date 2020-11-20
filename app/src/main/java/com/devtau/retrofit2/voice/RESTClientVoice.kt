@@ -55,7 +55,7 @@ class RESTClientVoice(private val view: VoiceRecognitionActivityView) {
             })
     }
 
-    fun recognizeStream(sessionId: String) {
+    fun recognizeStream(sessionId: String, listener: Consumer<String>) {
         Timber.d("recognizeStream")
         view.showProgress(true)
 
@@ -66,6 +66,7 @@ class RESTClientVoice(private val view: VoiceRecognitionActivityView) {
                     Timber.d("recognizeStream success. responseBody=$responseBody")
                     view.showProgress(false)
                     view.showMsg("recognizeStream success. responseBody=$responseBody")
+                    listener.accept(responseBody?.url.orEmpty())
                 }
             })
     }
